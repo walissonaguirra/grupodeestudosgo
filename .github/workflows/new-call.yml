@@ -1,0 +1,65 @@
+name: Novo post de call (reset semanal)
+
+on:
+  # Sábado 20:00 UTC = 17:00 BRT — logo depois da call das 14h.
+  schedule:
+    - cron: '0 20 * * 6'
+  workflow_dispatch:   # permite rodar na mão também
+
+permissions:
+  contents: write
+
+jobs:
+  new-call:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Criar post default da próxima call
+        run: |
+          set -euo pipefail
+          NEXT="$(date -d 'next saturday' +%F)"     # próximo sábado (a call de hoje já passou)
+          FILE="content/calls/${NEXT}-tema-a-definir.md"
+
+          if [ -f "$FILE" ]; then
+            echo "Post para $NEXT já existe ($FILE). Nada a fazer."
+            exit 0
+          fi
+
+          cat > "$FILE" <<EOF
+          ---
+          title: "Tema a definir"
+          date: ${NEXT}T14:00:00-03:00
+          presenter: ""
+          repo: ""
+          youtube: ""
+          status: "open"
+          summary: "Esse horário ainda está livre! Abra um PR editando este arquivo pra apresentar."
+          draft: false
+          ---
+
+          ## Quer apresentar nessa call?
+
+          Esse é o post **default** dessa semana. Pra reservar o tema:
+
+          1. Faça um fork e edite este arquivo.
+          2. Preencha o \`title\` (tema), \`presenter\` (seu usuário do GitHub), \`repo\` (link do material) e mude \`status\` para \`scheduled\`.
+          3. Abra um Pull Request.
+
+          A call acontece **sábado às 14h** no Discord e é gravada pro YouTube.
+          EOF
+
+          echo "Criado: $FILE"
+
+      - name: Commitar e publicar
+        run: |
+          set -euo pipefail
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Sem mudanças para commitar."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/calls/
+          git commit -m "chore: post default da próxima call 🐹 (reset semanal)"
+          git push

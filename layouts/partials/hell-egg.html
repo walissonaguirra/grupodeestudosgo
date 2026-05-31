@@ -1,0 +1,96 @@
+{{/* ---------- EASTER EGG: ônibus pro inferno ---------- */}}
+{{ $driver := hugo.Data.members.driver }}
+{{ $passengers := hugo.Data.members.passengers }}
+
+<button class="hell-trigger" data-hell-trigger aria-label="Não clique aqui" title="Não clica não…">🔥</button>
+
+<div class="hell-stage" data-hell-stage aria-hidden="true">
+
+  {{/* glow pulsante na borda da viewport (intensidade vem da música via JS) */}}
+  <div class="pulse-ring" data-pulse></div>
+
+  {{/* brasas subindo */}}
+  <div class="embers" data-embers aria-hidden="true"></div>
+
+  {{/* PORTAL DO INFERNO */}}
+  <svg class="hell-gates" viewBox="0 0 260 380" aria-hidden="true" preserveAspectRatio="xMidYMax meet">
+    <path d="M18 380 L18 150 Q18 28 130 16 Q242 28 242 150 L242 380 Z" fill="#1c0606" stroke="#3a0a0a" stroke-width="6"/>
+    <path d="M40 380 L40 150 Q40 50 130 40 Q220 50 220 150 L220 380 Z" fill="#0a0202"/>
+    <g stroke="#3a0a0a" stroke-width="3" fill="none" opacity=".7">
+      <path d="M18 150 Q18 28 130 16 Q242 28 242 150"/>
+      <line x1="18" y1="210" x2="40" y2="210"/><line x1="18" y1="270" x2="40" y2="270"/><line x1="18" y1="330" x2="40" y2="330"/>
+      <line x1="220" y1="210" x2="242" y2="210"/><line x1="220" y1="270" x2="242" y2="270"/><line x1="220" y1="330" x2="242" y2="330"/>
+    </g>
+    <path class="gate-fire" d="M58 380 L58 160 Q58 70 130 60 Q202 70 202 160 L202 380 Z" fill="#ff3b00" opacity=".92"/>
+    <path class="gate-fire2" d="M78 380 L78 175 Q78 95 130 86 Q182 95 182 175 L182 380 Z" fill="#ff7a1f"/>
+    <g stroke="#160404" stroke-width="6" opacity=".8">
+      <line x1="92" y1="120" x2="92" y2="380"/><line x1="114" y1="100" x2="114" y2="380"/>
+      <line x1="146" y1="100" x2="146" y2="380"/><line x1="168" y1="120" x2="168" y2="380"/>
+    </g>
+    <circle class="gate-eye" cx="110" cy="150" r="6" fill="#ffe27a"/>
+    <circle class="gate-eye" cx="150" cy="150" r="6" fill="#ffe27a"/>
+    <text x="130" y="46" text-anchor="middle" class="gate-text">HELL</text>
+    <g class="gate-flames">
+      <path class="flick f1" d="M70 250 q-16 -46 6 -80 q5 34 22 40 q16 -22 6 -50 q34 40 11 90 Z" fill="#ffb01f"/>
+      <path class="flick f2" d="M130 270 q-14 -56 9 -96 q7 40 24 47 q13 -28 7 -58 q38 50 9 107 Z" fill="#ff7a1f"/>
+      <path class="flick f3" d="M190 252 q-12 -44 7 -76 q6 32 20 38 q11 -20 6 -48 q30 38 10 86 Z" fill="#ffb01f"/>
+    </g>
+  </svg>
+
+  {{/* O ÔNIBUS (vermelho, cresce com a quantidade de gente) */}}
+  <div class="bus" data-bus>
+    <div class="bus-body">
+      <span class="bus-sign">L666 · INFERNO</span>
+      <span class="bus-window-band"></span>
+
+      <div class="bus-seats">
+        {{ range $p := $passengers }}
+        <div class="seat" data-role="crowd">
+          <div class="bubble crowd" data-bubble></div>
+          <a class="win" href="https://github.com/{{ $p }}" target="_blank" rel="noopener" title="@{{ $p }}">
+            <img loading="lazy" src="https://github.com/{{ $p }}.png?size=80" alt="@{{ $p }}">
+          </a>
+        </div>
+        {{ end }}
+        {{ with $driver }}
+        <div class="seat seat-driver" data-role="driver">
+          <div class="bubble" data-bubble></div>
+          <a class="win" href="https://github.com/{{ . }}" target="_blank" rel="noopener" title="Motorista: @{{ . }}">
+            <img loading="lazy" src="https://github.com/{{ . }}.png?size=80" alt="@{{ . }} (motorista)">
+          </a>
+          <span class="win-tag">@{{ . }}</span>
+        </div>
+        {{ end }}
+      </div>
+
+      <span class="bus-skirt"></span>
+      <span class="headlight"></span>
+
+      <svg class="wheel wheel-l" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" fill="#0d0d0d"/><circle cx="20" cy="20" r="11" fill="#cfcfcf"/>
+        <g stroke="#888" stroke-width="2.4" stroke-linecap="round">
+          <line x1="20" y1="20" x2="20" y2="10"/><line x1="20" y1="20" x2="28.7" y2="15"/><line x1="20" y1="20" x2="28.7" y2="25"/>
+          <line x1="20" y1="20" x2="20" y2="30"/><line x1="20" y1="20" x2="11.3" y2="25"/><line x1="20" y1="20" x2="11.3" y2="15"/>
+        </g>
+        <circle cx="20" cy="20" r="3.5" fill="#444"/>
+      </svg>
+      <svg class="wheel wheel-r" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" fill="#0d0d0d"/><circle cx="20" cy="20" r="11" fill="#cfcfcf"/>
+        <g stroke="#888" stroke-width="2.4" stroke-linecap="round">
+          <line x1="20" y1="20" x2="20" y2="10"/><line x1="20" y1="20" x2="28.7" y2="15"/><line x1="20" y1="20" x2="28.7" y2="25"/>
+          <line x1="20" y1="20" x2="20" y2="30"/><line x1="20" y1="20" x2="11.3" y2="25"/><line x1="20" y1="20" x2="11.3" y2="15"/>
+        </g>
+        <circle cx="20" cy="20" r="3.5" fill="#444"/>
+      </svg>
+    </div>
+  </div>
+
+  <audio data-hell-audio src="{{ "audio/highway.mp3" | relURL }}" loop preload="none"></audio>
+</div>
+
+{{/* Config pro JS */}}
+{{ $cfg := dict
+    "driverLines" hugo.Data.members.driverLines
+    "crowdLines" hugo.Data.members.crowdLines
+}}
+<script type="application/json" data-hell-config>{{ $cfg | jsonify }}</script>

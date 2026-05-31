@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  {{ partial "head.html" . }}
+</head>
+<body>
+  <main id="conteudo">
+    {{ block "main" . }}{{ end }}
+  </main>
+
+  {{ partial "footer.html" . }}
+
+  {{ partial "hell-egg.html" . }}
+
+  {{ $bs := resources.Get "vendor/bootstrap.bundle.min.js" | resources.Fingerprint }}
+  <script src="{{ $bs.RelPermalink }}" defer></script>
+  {{ $countdown := resources.Get "js/countdown.js" | resources.Minify | resources.Fingerprint }}
+  {{ $hell := resources.Get "js/hell.js" | resources.Minify | resources.Fingerprint }}
+  <script src="{{ $countdown.RelPermalink }}" defer></script>
+  <script src="{{ $hell.RelPermalink }}" defer></script>
+</body>
+</html>

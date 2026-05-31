@@ -1,0 +1,24 @@
+{{ define "main" }}
+<section class="container py-5" style="max-width:46rem">
+  <h1 class="mb-2">{{ .Title }}</h1>
+  <div class="text-secondary mb-4">{{ .Content }}</div>
+
+  {{ $calls := where site.RegularPages "Section" "calls" }}
+  {{ $upcoming := sort (where $calls "Date" "gt" now) "Date" "asc" }}
+  {{ $past := sort (where $calls "Date" "le" now) "Date" "desc" }}
+
+  {{ with $upcoming }}
+  <h2 class="h6 text-uppercase text-secondary mt-4">A caminho</h2>
+  <ul class="list-group list-group-flush">
+    {{ range . }}{{ partial "call-row.html" . }}{{ end }}
+  </ul>
+  {{ end }}
+
+  {{ with $past }}
+  <h2 class="h6 text-uppercase text-secondary mt-4">Arquivo</h2>
+  <ul class="list-group list-group-flush">
+    {{ range . }}{{ partial "call-row.html" . }}{{ end }}
+  </ul>
+  {{ end }}
+</section>
+{{ end }}

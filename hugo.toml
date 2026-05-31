@@ -1,0 +1,35 @@
+# Site do Grupo de Estudos Go — config Hugo
+# baseURL "/" funciona no dev local (hugo server) e no deploy a Action passa a URL
+# real do project page via --baseURL, então todos os links ganham o subpath certo.
+baseURL = "/"
+defaultContentLanguage = "pt-br"
+title = "Grupo de Estudos Go"
+timeZone = "America/Sao_Paulo"
+enableEmoji = true
+# A próxima call sempre tem data futura — sem isso o Hugo não a publicaria.
+buildFuture = true
+
+[params]
+  description = "Hub do grupo de estudos de Go do Cesar Gimenes — calls todo sábado às 14h."
+  # Links do grupo (edite à vontade)
+  discord  = "https://discord.gg/pKXF9y95Pp"
+  telegram = "https://t.me/grupoDeEstudosGolang"
+  youtube  = "https://www.youtube.com/@grupodeestudosdegolang"
+  github   = "https://github.com/crgimenes/grupo-estudos-golang"
+  # Horário fixo da call (sábado = 6, 14h) — usado como fallback do timer
+  callWeekday = 6
+  callHour = 14
+  # Hora em que a Action cria o próximo post default e o ciclo reinicia
+  resetHour = 17
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[markup.highlight]
+  noClasses = false
+
+[outputs]
+  home = ["HTML"]
+
+[permalinks]
+  calls = "/calls/:slug/"

@@ -1,0 +1,39 @@
+# Membros do grupo — usernames do GitHub (o avatar vem de https://github.com/<user>.png)
+# Edite via PR pra entrar no ônibus 🚌🔥
+
+# O "motorista do ônibus pro inferno": o Cesar.
+driver: crgimenes        # TODO: troque pelo username real do Cesar no GitHub
+
+# Passageiros que aparecem nas janelas do ônibus (ordem = ordem das janelas).
+passengers:
+  - FreyreCorona                # TODO: troque pelos usernames reais dos membros
+  - walissonaguirra
+  - trumae
+  - hitalos
+  - hitalos
+  - hitalos
+  - hitalos
+  - hitalos
+  - hitalos
+  - hitalos
+
+# Frases que o Cesar "sugere" nos balões (baixo nível = ônibus lota).
+driverLines:
+  - "E se a gente reescrevesse isso em WebAssembly?"
+  - "Dá pra resolver com Assembly inline, sabia?"
+  - "Bora portar pro kernel em Rust?"
+  - "Isso aí é só um syscall direto..."
+  - "Cache-line alignment resolve, confia."
+  - "Que tal um alocador custom em C?"
+  - "SIMD nisso e voa."
+  - "Compila pra eBPF e roda no kernel."
+
+# Respostas da galera concordando (passageiros).
+crowdLines:
+  - "Boraaa! 🔥"
+  - "Faz total sentido!"
+  - "Tô dentro 🚌"
+  - "Genial, Cesar!"
+  - "Já tô codando!"
+  - "O ônibus tá lotando!"
+  - "Inferno é aqui mesmo 😈"

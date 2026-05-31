@@ -1,0 +1,47 @@
+{{ $calls := .calls }}
+{{/* as 4 calls mais recentes (a próxima, futura, aparece primeiro) */}}
+{{ $recent := first 4 (sort $calls "Date" "desc") }}
+
+<section class="container py-3" aria-label="Calls do grupo">
+  <div class="row g-4">
+    {{ range $recent }}
+      {{ $isNext := gt .Date now }}
+      <div class="col-12 col-sm-6 col-lg-3">
+        <article class="card call-card shadow-sm {{ if $isNext }}call-card--next{{ end }}">
+          <div class="card-body d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              {{ if $isNext }}<span class="badge text-bg-primary">Próxima</span>
+              {{ else if eq .Params.status "done" }}<span class="badge text-bg-success">Gravada</span>
+              {{ else if eq .Params.status "open" }}<span class="badge text-bg-warning">Vaga aberta</span>
+              {{ else }}<span class="badge text-bg-secondary">Agendada</span>{{ end }}
+              <time class="text-secondary small" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02/01" }} · 14h</time>
+            </div>
+
+            <h3 class="h5 card-title mb-2">
+              <a class="stretched-link text-decoration-none text-body" href="{{ .RelPermalink }}">
+                {{ if eq .Params.status "open" }}Tema a definir{{ else }}{{ .Title }}{{ end }}
+              </a>
+            </h3>
+
+            {{ with .Params.summary }}<p class="card-text text-secondary small">{{ . }}</p>{{ end }}
+
+            <div class="mt-auto d-flex flex-wrap justify-content-between align-items-center gap-2 pt-2">
+              {{ with .Params.presenter }}
+                <span class="d-inline-flex align-items-center gap-2 small text-body">
+                  <img loading="lazy" class="rounded-circle avatar-sm" src="https://github.com/{{ . }}.png?size=64" alt="@{{ . }}" width="30" height="30">
+                  @{{ . }}
+                </span>
+              {{ else }}
+                <span class="text-secondary small fst-italic">Sem apresentador</span>
+              {{ end }}
+              <span class="d-flex gap-2 position-relative" style="z-index:2">
+                {{ with .Params.repo }}<a class="btn btn-sm btn-outline-secondary" href="{{ . }}" target="_blank" rel="noopener">Material</a>{{ end }}
+                {{ with .Params.youtube }}<a class="btn btn-sm btn-outline-danger" href="{{ . }}" target="_blank" rel="noopener">Vídeo</a>{{ end }}
+              </span>
+            </div>
+          </div>
+        </article>
+      </div>
+    {{ end }}
+  </div>
+</section>

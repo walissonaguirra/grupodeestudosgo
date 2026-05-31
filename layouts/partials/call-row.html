@@ -1,0 +1,11 @@
+<li class="list-group-item d-flex align-items-center gap-3 px-0">
+  <time class="text-secondary small" style="min-width:6rem" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02/01/2006" }}</time>
+  <a class="flex-grow-1 text-decoration-none text-body fw-semibold" href="{{ .RelPermalink }}">
+    {{ if eq .Params.status "open" }}Tema a definir{{ else }}{{ .Title }}{{ end }}
+  </a>
+  {{ with .Params.presenter }}<span class="text-secondary small">@{{ . }}</span>{{ end }}
+  <span class="d-flex gap-2">
+    {{ with .Params.repo }}<a class="btn btn-sm btn-outline-secondary py-0" href="{{ . }}" target="_blank" rel="noopener">Material</a>{{ end }}
+    {{ with .Params.youtube }}<a class="btn btn-sm btn-outline-danger py-0" href="{{ . }}" target="_blank" rel="noopener">Vídeo</a>{{ end }}
+  </span>
+</li>
