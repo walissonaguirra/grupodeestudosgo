@@ -1,7 +1,5 @@
-// Easter egg: o ônibus pro inferno.
-// Liga o "modo inferno": escurece o tema, toca a música, faz a borda pulsar no
-// ritmo, solta brasas, dá um balão de fala pra cada membro e queima a base da
-// tela com o algoritmo de fogo do DOOM (PSX fire) num canvas.
+// Easter egg: o ônibus pro inferno. Escurece o tema, toca a música, pulsa a borda
+// no ritmo, solta brasas e dá um balão de fala pra cada membro.
 (function () {
   var trigger = document.querySelector('[data-hell-trigger]');
   var stage = document.querySelector('[data-hell-stage]');
@@ -14,20 +12,23 @@
   var cfg = { driverLines: [], crowdLines: [] };
   try {
     var raw = document.querySelector('[data-hell-config]');
-    if (raw) cfg = Object.assign(cfg, JSON.parse(raw.textContent));
-  } catch (e) { /* opcional */ }
+    if (raw) {
+      var data = JSON.parse(raw.textContent);
+      if (typeof data === 'string') data = JSON.parse(data);
+      cfg = Object.assign(cfg, data);
+    }
+  } catch (e) {}
   var driverLines = (cfg.driverLines && cfg.driverLines.length) ? cfg.driverLines : ['E se reescrevesse em WebAssembly?'];
   var crowdLines = (cfg.crowdLines && cfg.crowdLines.length) ? cfg.crowdLines : ['Boraaa!'];
 
   var active = false, timers = [], raf = null;
   var audioCtx = null, analyser = null, srcNode = null, freq = null;
-  var pulseMode = 'auto', pulse = 0, t0 = 0;
+  var pulseMode = 'auto', pulse = 0, t0 = 0, base = 0;
 
   function rand(a) { return a[Math.floor(Math.random() * a.length)]; }
   function later(fn, ms) { var id = setTimeout(fn, ms); timers.push(id); return id; }
   function every(fn, ms) { var id = setInterval(fn, ms); timers.push(id); return id; }
 
-  /* ---------- áudio + análise ---------- */
   function startAudio() {
     if (!audio) return;
     try {
@@ -56,7 +57,7 @@
     } catch (e) { pulseMode = 'auto'; }
   }
 
-  /* ---------- loop (pulse) ---------- */
+  // Pulse da borda: linha de base adaptativa, reage à batida sem saturar no máximo.
   function loop(ts) {
     if (!active) return;
     if (!t0) t0 = ts;
@@ -65,17 +66,23 @@
       analyser.getByteFrequencyData(freq);
       var sum = 0, n = Math.min(8, freq.length);
       for (var i = 0; i < n; i++) sum += freq[i];
-      target = Math.min(1, (sum / n) / 160);
+      var cur = sum / n;
+      base += (cur - base) * 0.03;
+      if (base < 4) {
+        target = 0;
+      } else {
+        target = (cur - base) / (base * 0.6) + 0.45;
+        target = target < 0 ? 0 : (target > 1 ? 1 : target);
+      }
     } else {
       var s = (ts - t0) / 1000;
-      target = 0.5 + 0.5 * Math.abs(Math.sin(s * Math.PI * 2.1));  // ~126 bpm
+      target = 0.5 + 0.5 * Math.abs(Math.sin(s * Math.PI * 2.1));
     }
-    pulse += (target - pulse) * 0.4;                                // snappy
+    pulse += (target - pulse) * 0.4;
     root.style.setProperty('--pulse', pulse.toFixed(3));
     raf = requestAnimationFrame(loop);
   }
 
-  /* ---------- brasas ---------- */
   function spawnEmber() {
     if (!active) return;
     var e = document.createElement('span');
@@ -90,29 +97,54 @@
     later(function () { e.remove(); }, dur * 1000);
   }
 
-  /* ---------- balão por membro ---------- */
+  // O Cesar sugere e só depois a galera concorda, um de cada vez.
+  var bz = 10;
   function startBubbles() {
     var seats = [].slice.call(stage.querySelectorAll('.seat'));
-    seats.forEach(function (seat, idx) {
-      var bubble = seat.querySelector('[data-bubble]');
-      if (!bubble) return;
-      var pool = seat.dataset.role === 'driver' ? driverLines : crowdLines;
-      function cycle() {
-        if (!active) return;
-        bubble.textContent = rand(pool);
-        bubble.classList.add('show');
-        later(function () {
-          bubble.classList.remove('show');
-          later(cycle, 1400 + Math.random() * 4200);
-        }, 2200 + Math.random() * 1800);
-      }
-      later(cycle, 4200 + idx * 500 + Math.random() * 1500);  // escalonado, após o ônibus chegar
+    var driverSeat = null, crowdSeats = [];
+    seats.forEach(function (s) {
+      if (s.dataset.role === 'driver') driverSeat = s; else crowdSeats.push(s);
     });
+    function bubbleOf(seat) { return seat && seat.querySelector('[data-bubble]'); }
+    function show(seat, text) {
+      var b = bubbleOf(seat);
+      if (!b) return;
+      b.textContent = text;
+      b.style.zIndex = ++bz;
+      b.classList.add('show');
+    }
+    function hide(seat) { var b = bubbleOf(seat); if (b) b.classList.remove('show'); }
+    function shuffled(arr) {
+      var a = arr.slice();
+      for (var j = a.length - 1; j > 0; j--) {
+        var k = Math.floor(Math.random() * (j + 1));
+        var t = a[j]; a[j] = a[k]; a[k] = t;
+      }
+      return a;
+    }
+
+    function round() {
+      if (!active) return;
+      show(driverSeat, rand(driverLines));
+      var order = shuffled(crowdSeats), lines = shuffled(crowdLines), maxDelay = 0;
+      order.forEach(function (seat, i) {
+        var text = lines[i % lines.length];  // frases distintas: nenhum passageiro repete na rodada
+        var d = 1700 + i * (620 + Math.random() * 380) + Math.random() * 250;
+        if (d > maxDelay) maxDelay = d;
+        later(function () { if (active) show(seat, text); }, d);
+      });
+      later(function () {
+        if (!active) return;
+        hide(driverSeat);
+        crowdSeats.forEach(hide);
+        later(round, 1200 + Math.random() * 1400);
+      }, maxDelay + 2600);
+    }
+    later(round, 4200);
   }
 
-  /* ---------- liga / desliga ---------- */
   function enter() {
-    active = true; t0 = 0; pulse = 0;
+    active = true; t0 = 0; pulse = 0; base = 0;
     stage.setAttribute('aria-hidden', 'false');
     trigger.title = 'Apagar o inferno'; trigger.textContent = '🧯';
     root.classList.add('hell', 'hell-1');

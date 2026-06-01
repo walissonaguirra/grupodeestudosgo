@@ -1,4 +1,3 @@
-{{/* ---------- EASTER EGG: ônibus pro inferno ---------- */}}
 {{ $driver := hugo.Data.members.driver }}
 {{ $passengers := hugo.Data.members.passengers }}
 
@@ -6,13 +5,10 @@
 
 <div class="hell-stage" data-hell-stage aria-hidden="true">
 
-  {{/* glow pulsante na borda da viewport (intensidade vem da música via JS) */}}
   <div class="pulse-ring" data-pulse></div>
 
-  {{/* brasas subindo */}}
   <div class="embers" data-embers aria-hidden="true"></div>
 
-  {{/* PORTAL DO INFERNO */}}
   <svg class="hell-gates" viewBox="0 0 260 380" aria-hidden="true" preserveAspectRatio="xMidYMax meet">
     <path d="M18 380 L18 150 Q18 28 130 16 Q242 28 242 150 L242 380 Z" fill="#1c0606" stroke="#3a0a0a" stroke-width="6"/>
     <path d="M40 380 L40 150 Q40 50 130 40 Q220 50 220 150 L220 380 Z" fill="#0a0202"/>
@@ -37,7 +33,6 @@
     </g>
   </svg>
 
-  {{/* O ÔNIBUS (vermelho, cresce com a quantidade de gente) */}}
   <div class="bus" data-bus>
     <div class="bus-body">
       <span class="bus-sign">L666 · INFERNO</span>
@@ -88,9 +83,8 @@
   <audio data-hell-audio src="{{ "audio/highway.mp3" | relURL }}" loop preload="none"></audio>
 </div>
 
-{{/* Config pro JS */}}
 {{ $cfg := dict
     "driverLines" hugo.Data.members.driverLines
     "crowdLines" hugo.Data.members.crowdLines
 }}
-<script type="application/json" data-hell-config>{{ $cfg | jsonify }}</script>
+<script type="application/json" data-hell-config>{{ $cfg | jsonify | safeJS }}</script>

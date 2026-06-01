@@ -1,6 +1,3 @@
-/* ===================== EASTER EGG: ônibus pro inferno ===================== */
-
-/* botão gatilho */
 .hell-trigger {
   position: fixed; left: 1rem; bottom: 1rem; z-index: 10000;
   width: 3rem; height: 3rem; border-radius: 50%; border: none; cursor: pointer;
@@ -15,7 +12,6 @@
 }
 html.hell .hell-trigger { background: #ff3b00; box-shadow: 0 0 26px 6px rgba(255,80,0,.8); }
 
-/* ---------- palco (overlay) ---------- */
 .hell-stage {
   position: fixed; inset: 0; z-index: 9980; pointer-events: none;
   opacity: 0; transition: opacity 1.5s ease; overflow: hidden;
@@ -23,7 +19,6 @@ html.hell .hell-trigger { background: #ff3b00; box-shadow: 0 0 26px 6px rgba(255
 .hell-stage a, .hell-stage .win { pointer-events: auto; }
 html.hell .hell-stage { opacity: 1; }
 
-/* ---------- escurecimento progressivo (sobrescreve variáveis do Bootstrap) ---------- */
 html.hell-1 {
   --bs-body-bg:#2a1212; --bs-body-color:#ffe2cf; --bs-secondary-color:#e7a07e;
   --bs-border-color:#5e2424; --bs-card-bg:#341515; --bs-tertiary-bg:#321616; --bs-emphasis-color:#fff;
@@ -39,14 +34,19 @@ html.hell-3 {
 html.hell .cd-num { color:#ff4500; }
 html.hell .cd-unit { border-top-color:#ff4500; }
 
-/* logo do Go pegando fogo (muda de cor) */
+html.hell .info-card {
+  background: #1c0808; color: #ffd9c2;
+  --bs-body-color: #ffd9c2; --bs-secondary-color: #d6815f;
+  border-color: #5a1414; border-top-color: #ff4500;
+  box-shadow: 0 12px 30px rgba(255, 40, 0, .3);
+}
+
 html.hell .go-logo g { animation: logo-burn 2.4s linear infinite; }
 @keyframes logo-burn {
   0%   { fill:#ff5a1f; } 25% { fill:#ffd23f; } 50% { fill:#ff2d00; }
   75%  { fill:#ff9a1f; } 100% { fill:#ff5a1f; }
 }
 
-/* botões de rede social pegando fogo (mudam de cor no modo hell) */
 html.hell .btn-brand { box-shadow: 0 0 18px 3px rgba(255,90,0,.55); animation: btn-burn 2.2s ease-in-out infinite; }
 html.hell .btn-discord  { background: #b3210a; }
 html.hell .btn-telegram { background: #d1430a; }
@@ -54,7 +54,6 @@ html.hell .btn-youtube  { background: #e01200; }
 html.hell .btn-github   { background: #7a0c0c; }
 @keyframes btn-burn { 0%,100% { filter: brightness(1); } 50% { filter: brightness(1.32); } }
 
-/* ---------- borda pulsante (mais forte, no ritmo da música) ---------- */
 .pulse-ring {
   position: fixed; inset: 0; z-index: 9990; pointer-events: none; opacity: 0;
   transition: opacity 1.2s ease;
@@ -66,7 +65,6 @@ html.hell .btn-github   { background: #7a0c0c; }
 }
 html.hell .pulse-ring { opacity: 1; }
 
-/* ---------- brasas ---------- */
 .embers { position: fixed; inset: 0; z-index: 9991; pointer-events: none; }
 .ember {
   position: absolute; bottom: -12px; width: 7px; height: 7px; border-radius: 50%;
@@ -78,11 +76,10 @@ html.hell .pulse-ring { opacity: 1; }
   100% { transform: translateY(-102vh) translateX(var(--drift,0)) scale(.3); opacity: 0; }
 }
 
-/* ---------- portal do inferno ---------- */
 .hell-gates {
-  position: fixed; right: 0; bottom: 0; z-index: 9985; height: min(72vh, 460px); width: auto;
+  position: fixed; right: 0; bottom: 0; z-index: 9985; height: min(54vh, 350px); width: auto;
   pointer-events: none; opacity: 0; transform: translateY(24px);
-  transition: opacity 2s ease, transform 2s ease; filter: drop-shadow(0 0 36px rgba(255,60,0,.7));
+  transition: opacity 2s ease, transform 2s ease; filter: drop-shadow(0 0 30px rgba(255,60,0,.65));
 }
 html.hell .hell-gates { opacity: 1; transform: translateY(0); }
 .gate-text { fill:#ffd23f; font: 800 36px/1 system-ui, sans-serif; letter-spacing:.14em; filter: drop-shadow(0 0 8px #ff5a1f); }
@@ -97,7 +94,6 @@ html.hell .hell-gates { opacity: 1; transform: translateY(0); }
 .flick.f3 { animation: flick 1.3s ease-in-out infinite .1s; }
 @keyframes flick { 0%,100% { transform: scaleY(1) skewX(0deg); } 50% { transform: scaleY(1.3) skewX(7deg); } }
 
-/* ---------- o ÔNIBUS vermelho (cresce com a quantidade de gente) ---------- */
 .bus {
   position: fixed; right: 6%; bottom: 22px; z-index: 9996; pointer-events: none;
   transform: translateX(-220vw);
@@ -108,27 +104,25 @@ html.hell .bus { animation: bus-drive 6.5s cubic-bezier(.22,.61,.36,1) forwards;
   95% { transform: translateX(-5px); } 100% { transform: translateX(0); }
 }
 .bus-body {
-  position: relative; display: flex; align-items: center; gap: 12px;
-  height: 104px; padding: 0 30px 0 22px;
+  position: relative; display: flex; align-items: center; gap: 14px;
+  height: 126px; padding: 0 38px 0 26px;
   background: #c1121f; border: 3px solid #5a0a0e;
-  border-radius: 12px 48px 10px 10px;   /* frente arredondada (direita = sentido da viagem) */
+  border-radius: 14px 56px 12px 12px;
   box-shadow: 0 12px 22px rgba(0,0,0,.5), 0 0 30px 6px rgba(255,40,0,.6);
 }
 html.hell .bus-body { animation: bus-bounce .5s ease-in-out infinite; transform-origin: bottom center; }
 @keyframes bus-bounce { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-3px) rotate(-.4deg); } }
-/* faixa de janelas escura atrás dos avatares */
-.bus-window-band { position: absolute; left: 16px; right: 76px; top: 14px; height: 50px; background: #4a0a0e; border-radius: 8px 12px 6px 6px; }
-.bus-skirt { position: absolute; left: 6px; right: 30px; bottom: 8px; height: 14px; background: #7a0c12; border-radius: 4px; }
-/* placa de destino no teto */
+.bus-window-band { position: absolute; left: 18px; right: 92px; top: 16px; height: 60px; background: #4a0a0e; border-radius: 8px 12px 6px 6px; }
+.bus-skirt { position: absolute; left: 8px; right: 38px; bottom: 10px; height: 16px; background: #7a0c12; border-radius: 4px; }
 .bus-sign {
-  position: absolute; top: -13px; left: 26px; z-index: 3; font-size: .6rem; font-weight: 800; letter-spacing: .05em;
-  color: #ffd23f; background: #2a0608; border: 2px solid #5a0a0e; padding: .05rem .4rem; border-radius: 4px;
+  position: absolute; top: -15px; left: 30px; z-index: 1; font-size: .64rem; font-weight: 800; letter-spacing: .05em;
+  color: #ffd23f; background: #2a0608; border: 2px solid #5a0a0e; padding: .05rem .45rem; border-radius: 4px;
 }
 
-.bus-seats { position: relative; z-index: 2; display: flex; align-items: center; gap: 12px; padding-left: 4px; }
+.bus-seats { position: relative; z-index: 2; display: flex; align-items: center; gap: 14px; padding-left: 6px; }
 .seat { position: relative; }
 .win {
-  display: block; width: 56px; height: 56px; border-radius: 50%; overflow: hidden;
+  display: block; width: 66px; height: 66px; border-radius: 50%; overflow: hidden;
   border: 3px solid #2a0608; box-shadow: 0 0 0 3px #c1121f; background: #fff;
   opacity: 0; transform: translateY(6px);
 }
@@ -136,31 +130,29 @@ html.hell .bus-body { animation: bus-bounce .5s ease-in-out infinite; transform-
 html.hell .win { animation: win-pop .45s ease forwards; }
 @keyframes win-pop { to { opacity: 1; transform: translateY(0); } }
 
-/* cabine do motorista: o Cesar atrás do para-brisa, na frente do ônibus */
 .seat-driver {
   position: relative; z-index: 2; align-self: stretch; display: flex; align-items: center;
-  margin-left: 6px; padding: 8px 16px 8px 10px;
-  background: #bfe3ff; border: 3px solid #5a0a0e; border-radius: 10px 42px 8px 8px;
+  margin-left: 6px; padding: 10px 20px 10px 12px;
+  background: #bfe3ff; border: 3px solid #5a0a0e; border-radius: 12px 50px 8px 8px;
   box-shadow: inset 0 0 0 2px rgba(255,255,255,.6);
 }
-.seat-driver .win { width: 70px; height: 70px; border-color: #0a3a5c; box-shadow: 0 0 0 3px #fff, 0 0 16px 3px rgba(255,90,0,.8); }
-.seat-driver::after { /* volante */
-  content: ""; position: absolute; bottom: 3px; left: 44%; transform: translateX(-50%);
-  width: 24px; height: 11px; border: 3px solid #2a0608; border-bottom: 0; border-radius: 13px 13px 0 0;
+.seat-driver .win { width: 84px; height: 84px; border-color: #0a3a5c; box-shadow: 0 0 0 3px #fff, 0 0 18px 4px rgba(255,90,0,.8); }
+.seat-driver::after {
+  content: ""; position: absolute; bottom: 4px; left: 44%; transform: translateX(-50%);
+  width: 28px; height: 13px; border: 3px solid #2a0608; border-bottom: 0; border-radius: 15px 15px 0 0;
 }
 .win-tag {
   position: absolute; bottom: -1.4rem; left: 50%; transform: translateX(-50%);
-  white-space: nowrap; font-size: .64rem; font-weight: 800; color: #ffd23f;
+  white-space: nowrap; font-size: .66rem; font-weight: 800; color: #ffd23f;
   background: rgba(0,0,0,.65); padding: .1rem .45rem; border-radius: 999px;
 }
 
-.headlight { position: absolute; right: 4px; bottom: 30px; width: 11px; height: 11px; border-radius: 50%; background: #fff3b0; box-shadow: 0 0 12px 4px #fff3b0; }
-.wheel { position: absolute; bottom: -15px; width: 42px; height: 42px; transform-origin: center; }
-.wheel-l { left: 34px; } .wheel-r { right: 36px; }
+.headlight { position: absolute; right: 5px; bottom: 38px; width: 13px; height: 13px; border-radius: 50%; background: #fff3b0; box-shadow: 0 0 12px 4px #fff3b0; }
+.wheel { position: absolute; bottom: -18px; width: 50px; height: 50px; transform-origin: center; }
+.wheel-l { left: 40px; } .wheel-r { right: 44px; }
 html.hell .wheel { animation: spin .55s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ---------- balão de fala (um por membro) ---------- */
 .bubble {
   position: absolute; bottom: calc(100% + 12px); left: 50%;
   width: max-content; max-width: 12rem; transform: translate(-50%, 8px);
@@ -178,7 +170,6 @@ html.hell .wheel { animation: spin .55s linear infinite; }
 
 @media (max-width: 760px) {
   .bus { right: 2%; transform-origin: bottom right; }
-  html.hell .bus { animation: bus-drive 6.5s cubic-bezier(.22,.61,.36,1) forwards; }
   .bus-body { gap: 8px; padding: 10px 14px; }
   .win { width: 40px; height: 40px; }
   .seat-driver .win { width: 48px; height: 48px; }
