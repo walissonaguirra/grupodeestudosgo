@@ -1,9 +1,5 @@
 {{ define "main" }}
-{{ $calls := where site.RegularPages "Section" "calls" }}
-{{ $upcoming := sort (where $calls "Date" "gt" now) "Date" "asc" }}
-{{ $next := index $upcoming 0 }}
-
-<section class="container text-center py-5">
+<section class="home-wrap text-center">
   <svg class="go-logo mb-4" viewBox="0 0 207 78" role="img" aria-label="Go">
     <g fill="#00acd7" fill-rule="evenodd">
       <path d="m16.2 24.1c-.4 0-.5-.2-.3-.5l2.1-2.7c.2-.3.7-.5 1.1-.5h35.7c.4 0 .5.3.3.6l-1.7 2.6c-.2.3-.7.6-1 .6z"/>
@@ -19,11 +15,9 @@
   <p class="text-uppercase text-secondary fw-semibold small mb-1" style="letter-spacing:.12em">Grupo de Estudos Go · Cesar Gimenes</p>
   <h1 class="display-6 fw-bold mb-4">A próxima call começa em</h1>
 
-  {{ partial "countdown.html" (dict "next" $next) }}
+  {{ partial "countdown.html" (dict "next" "") }}
 
-  <p class="text-secondary mt-4 mb-4">Calls todo <strong>sábado às 14h</strong> no Discord, ao vivo e gravadas pro YouTube.</p>
-
-  <div class="d-flex flex-wrap justify-content-center gap-3">
+  <div class="d-flex flex-wrap justify-content-center gap-3 my-5">
     {{ with site.Params.discord }}
     <a class="btn-brand btn-discord" href="{{ . }}" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
@@ -45,17 +39,12 @@
       GitHub
     </a>{{ end }}
   </div>
-</section>
 
-{{ partial "calls-grid.html" (dict "calls" $calls) }}
-
-<section class="container py-5" style="max-width:42rem">
-  <h2 class="h4 mb-3">Quer apresentar?</h2>
-  <ol class="text-secondary lh-lg">
-    <li>Todo sábado às 17h o bot cria o post da próxima semana com o tema a definir.</li>
-    <li>Edite esse post num <strong>Pull Request</strong>: tema, seu usuário do GitHub e o link do material.</li>
-    <li>No sábado seguinte a call rola às 14h. Depois é só adicionar o link do vídeo.</li>
-  </ol>
-  <a class="btn btn-outline-secondary" href="{{ (site.GetPage "/calls").RelPermalink }}">Ver todas as calls</a>
+  <div class="info-card card text-start mx-auto">
+    <div class="card-body p-4">
+      <h2 class="h4 mb-2">{{ site.Params.cardTitle }}</h2>
+      <p class="mb-0 fs-5 text-secondary">{{ site.Params.cardText }}</p>
+    </div>
+  </div>
 </section>
 {{ end }}

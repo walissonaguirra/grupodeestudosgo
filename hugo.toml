@@ -6,30 +6,24 @@ defaultContentLanguage = "pt-br"
 title = "Grupo de Estudos Go"
 timeZone = "America/Sao_Paulo"
 enableEmoji = true
-# A próxima call sempre tem data futura — sem isso o Hugo não a publicaria.
-buildFuture = true
+disableKinds = ["taxonomy", "term"]
 
 [params]
-  description = "Hub do grupo de estudos de Go do Cesar Gimenes — calls todo sábado às 14h."
+  description = "Grupo de estudos de Go do Cesar Gimenes — call todo sábado às 14h no Discord."
   # Links do grupo (edite à vontade)
   discord  = "https://discord.gg/pKXF9y95Pp"
   telegram = "https://t.me/grupoDeEstudosGolang"
   youtube  = "https://www.youtube.com/@grupodeestudosdegolang"
   github   = "https://github.com/crgimenes/grupo-estudos-golang"
-  # Horário fixo da call (sábado = 6, 14h) — usado como fallback do timer
+  # Horário fixo da call (sábado = 6, 14h) — usado pelo timer
   callWeekday = 6
   callHour = 14
-  # Hora em que a Action cria o próximo post default e o ciclo reinicia
-  resetHour = 17
+  # Conteúdo do card da home (edite à vontade)
+  cardTitle = "Toda semana tem call de Go!"
+  cardText = "A gente se encontra todo sábado às 14h no Discord pra estudar Go juntos: codar, trocar ideia e aprender no ritmo do grupo."
 
 [markup.goldmark.renderer]
   unsafe = true
 
-[markup.highlight]
-  noClasses = false
-
 [outputs]
   home = ["HTML"]
-
-[permalinks]
-  calls = "/calls/:slug/"

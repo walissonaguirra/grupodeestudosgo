@@ -1,8 +1,6 @@
-/* ===== Grupo de Estudos Go — complementos ao Bootstrap (tema light) ===== */
 :root {
   --go: #00acd7;
   --go-dark: #007d9c;
-  /* fundo suave (não branco) — o modo inferno sobrescreve em hell.css */
   --bs-body-bg: #eef2f6;
   --bs-body-bg-rgb: 238, 242, 246;
   --bs-card-bg: #ffffff;
@@ -12,13 +10,16 @@
 
 body { transition: background-color 2.2s ease, color 2.2s ease; }
 
-/* garante que o atributo hidden vença regras de display */
 [hidden] { display: none !important; }
 
-/* logo do Go */
+.home-wrap {
+  min-height: calc(100vh - 2rem);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  max-width: 720px; margin: 0 auto; padding: 3rem 1.25rem;
+}
+
 .go-logo { width: clamp(110px, 22vw, 168px); height: auto; }
 
-/* ----- contagem regressiva: grande e em destaque ----- */
 .countdown { font-variant-numeric: tabular-nums; }
 .cd-unit {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -30,7 +31,6 @@ body { transition: background-color 2.2s ease, color 2.2s ease; }
 .cd-num { font-size: clamp(3rem, 12vw, 6rem); font-weight: 800; line-height: 1; color: var(--go); }
 .cd-label { font-size: .8rem; text-transform: uppercase; letter-spacing: .14em; color: var(--bs-secondary-color); margin-top: .45rem; font-weight: 700; }
 
-/* ----- botões de marca (mais personalidade que o btn padrão) ----- */
 .btn-brand {
   display: inline-flex; align-items: center; gap: .55rem; font-weight: 700; font-size: 1.02rem;
   padding: .68rem 1.3rem; border: 0; border-radius: .8rem; color: #fff; text-decoration: none;
@@ -43,27 +43,12 @@ body { transition: background-color 2.2s ease, color 2.2s ease; }
 .btn-youtube  { background: #FF0000; }
 .btn-github   { background: #181717; }
 
-/* ----- grid de calls ----- */
-.call-card {
-  height: 100%; background: #fff; color: #16242e;
-  /* mantém os cards brancos e legíveis mesmo no modo inferno */
-  --bs-body-color: #16242e; --bs-secondary-color: #5b6b76; --bs-border-color: #dee5ec;
-  border: 1px solid #dee5ec; border-top: 4px solid var(--go);
-  border-radius: 1rem; box-shadow: 0 8px 22px rgba(0, 50, 70, .10);
-  transition: transform .16s ease, box-shadow .16s ease;
+.info-card {
+  width: 100%; max-width: 640px; background: #fff; color: #16242e;
+  --bs-body-color: #16242e; --bs-secondary-color: #5b6b76;
+  border: 1px solid var(--bs-border-color); border-top: 5px solid var(--go);
+  border-radius: 1rem; box-shadow: 0 12px 32px rgba(0, 50, 70, .12);
 }
-.call-card:hover { transform: translateY(-6px); box-shadow: 0 20px 44px rgba(0, 50, 70, .2); }
-.call-card--next {
-  border: 2px solid var(--go); border-top-width: 7px;
-  box-shadow: 0 16px 38px rgba(0, 172, 215, .3);
-}
-.call-card .card-body { font-size: 1.05rem; }
-.call-card .card-title { font-weight: 700; line-height: 1.25; font-size: 1.3rem; }
-.call-card .card-title a { color: #16242e; }
-.call-card .card-title a:hover { color: var(--go-dark); }
-.call-card .card-text { font-size: 1rem; }
-.call-card .badge { font-size: .76rem; padding: .38em .64em; }
-.avatar-sm { width: 32px; height: 32px; object-fit: cover; }
 
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }

@@ -1,47 +1,33 @@
-# 🐹 Grupo de Estudos Go
+# Grupo de Estudos Go
 
-Site do grupo de estudos de Go do **Cesar Gimenes**. Calls todo **sábado às 14h** no Discord,
-ao vivo e gravadas pro YouTube. Feito em [Hugo](https://gohugo.io) e hospedado no GitHub Pages.
+Site do grupo de estudos de Go do **Cesar Gimenes**. Call todo **sábado às 14h** no Discord, gravada pro YouTube. Feito em [Hugo](https://gohugo.io), hospedado no GitHub Pages.
 
-## O que tem aqui
-- ⏱️ **Timer** com contagem regressiva pra próxima call (fuso `America/Sao_Paulo`, com estado "ao vivo" no sábado das 14h às 17h).
-- 🎠 **Carrossel** de calls — próxima em destaque + arquivo das anteriores com link do vídeo.
-- 🤖 **Reset automático**: todo sábado 17h uma GitHub Action cria o post "Tema a definir" da semana seguinte.
-- 🔥 **Easter egg** infernal (clica no botão no canto… ou não 😈).
+## Atualizar o card da home
 
-## Quero apresentar numa call
-1. Edite o post default da próxima call em `content/calls/<data>-tema-a-definir.md` (ou crie um novo).
-2. Preencha o front matter:
-   ```yaml
-   title: "Meu tema incrível"
-   presenter: "seu-usuario-github"   # vira seu avatar no card
-   repo: "https://github.com/.../material"
-   status: "scheduled"
-   ```
-3. Abra um **Pull Request**. Depois da call, edite de novo pra adicionar `youtube: "<link>"` e `status: "done"`.
+Edite o `hugo.toml`, em `[params]`:
 
-## Rodar localmente
-```bash
-hugo server -D        # http://localhost:1313
-hugo --minify         # build de produção em ./public
+```toml
+[params]
+  cardTitle = "Toda semana tem call de Go!"
+  cardText  = "A gente se encontra todo sábado às 14h no Discord..."
 ```
 
-## Configuração
-| Onde | O quê |
-|------|-------|
-| `hugo.toml` → `[params]` | links de Discord/Telegram/YouTube/GitHub |
-| `data/members.yaml` | `driver` (Cesar) e `passengers` do ônibus 🚌, + falas dos balões |
-| `static/audio/highway.mp3` | música do easter egg (veja `static/audio/README.md` — não embarcamos o oficial por direitos autorais) |
+`cardTitle` é o título e `cardText` é a mensagem. Salvou e deu push, o site atualiza sozinho.
+Os links (Discord/Telegram/YouTube/GitHub) também ficam no `[params]`.
 
-## Publicar no GitHub Pages
-1. Crie o repositório `grupodeestudosgo` no GitHub e dê push da branch `main`.
-2. Em **Settings → Pages → Build and deployment → Source**, escolha **GitHub Actions**.
-3. O workflow `.github/workflows/deploy.yml` builda e publica a cada push em `main`.
-   O `baseURL` é resolvido automaticamente — não precisa editar o `hugo.toml` pra apontar pra sua conta.
+## Adicionar alguém no ônibus
 
-## O ônibus pro inferno 🚌🔥
-Piada interna: o Cesar é o "motorista do ônibus pro inferno" porque vive sugerindo solução de
-baixo nível (WebAssembly, Assembly, kernel…) — e no fim **todo mundo embarca**. Clicar no botão 🔥
-escurece o site progressivamente, toca a música, traz o ônibus com os avatares do GitHub (motorista
-= `driver`, passageiros = `passengers`), solta brasas, faz a borda pulsar no ritmo e mostra os balões
-de fala. `Esc` ou o botão 🧯 apagam o inferno.
+O easter egg mostra um ônibus com os avatares do GitHub do pessoal. Edite `data/members.yaml`:
+
+```yaml
+driver: crgimenes          # o motorista (Cesar)
+passengers:                # quem aparece nas janelas (em ordem)
+  - FreyreCorona
+  - walissonaguirra
+  - seu-usuario-aqui       # adicione seu @ do GitHub
+```
+
+O avatar vem automático de `https://github.com/<usuario>.png`. Para entrar, é só abrir um PR adicionando seu usuário em `passengers`.
+
+As 'falas dos balões também ficam nesse arquivo: `driverLines` e `crowdLines` (a galera concordando). Pode adicionar mais à vontade.
+
