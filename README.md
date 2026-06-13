@@ -11,6 +11,7 @@ assets/css/main.css         # estilos da home
 assets/css/hell.css         # estilos do easter egg
 assets/js/countdown.js      # contagem regressiva
 assets/js/hell.js           # o easter egg do ônibus
+assets/data/members.js      # quem está no ônibus (motorista e passageiros)
 assets/data/lines.js        # as falas dos balões (driverLines/crowdLines)
 audio/highway.mp3           # trilha do easter egg
 ```
@@ -30,15 +31,18 @@ ficam logo acima, nos `href` dos botões `btn-brand`. Salvou e deu push, o site 
 ## Adicionar alguém no ônibus
 
 O easter egg (botão 🔥 no canto) mostra um ônibus com os avatares do GitHub do pessoal.
-No `index.html`, procure por `bus-seats` e duplique um bloco `seat`, trocando o usuário:
+Os assentos são montados pelo `hell.js` a partir de `assets/data/members.js` — é só
+adicionar seu usuário em `passengers`:
 
-```html
-<div class="seat" data-role="crowd">
-  <div class="bubble crowd" data-bubble></div>
-  <a class="win" href="https://github.com/seu-usuario" target="_blank" rel="noopener" title="@seu-usuario">
-    <img loading="lazy" src="https://github.com/seu-usuario.png?size=80" alt="@seu-usuario">
-  </a>
-</div>
+```js
+window.HELL_MEMBERS = {
+  driver: "crgimenes",        // o motorista (Cesar)
+  passengers: [               // quem aparece nas janelas (em ordem)
+    "FreyreCorona",
+    "walissonaguirra",
+    "seu-usuario"             // adicione seu @ do GitHub
+  ]
+};
 ```
 
 O avatar vem automático de `https://github.com/<usuario>.png`. Para entrar, é só abrir um PR.

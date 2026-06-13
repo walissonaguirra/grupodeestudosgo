@@ -13,6 +13,50 @@
   try {
     if (window.HELL_LINES) cfg = Object.assign(cfg, window.HELL_LINES);
   } catch (e) {}
+
+  // Monta os assentos do onibus a partir dos membros (assets/data/members.js):
+  // passageiros nas janelas, na ordem, e o motorista por ultimo.
+  function makeSeat(user, isDriver) {
+    var u = String(user);
+    var seat = document.createElement('div');
+    seat.className = isDriver ? 'seat seat-driver' : 'seat';
+    seat.setAttribute('data-role', isDriver ? 'driver' : 'crowd');
+
+    var bubble = document.createElement('div');
+    bubble.className = isDriver ? 'bubble' : 'bubble crowd';
+    bubble.setAttribute('data-bubble', '');
+    seat.appendChild(bubble);
+
+    var a = document.createElement('a');
+    a.className = 'win';
+    a.href = 'https://github.com/' + u;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.title = isDriver ? ('Motorista: @' + u) : ('@' + u);
+
+    var img = document.createElement('img');
+    img.loading = 'lazy';
+    img.src = 'https://github.com/' + u + '.png?size=80';
+    img.alt = isDriver ? ('@' + u + ' (motorista)') : ('@' + u);
+    a.appendChild(img);
+    seat.appendChild(a);
+
+    if (isDriver) {
+      var tag = document.createElement('span');
+      tag.className = 'win-tag';
+      tag.textContent = '@' + u;
+      seat.appendChild(tag);
+    }
+    return seat;
+  }
+  function buildSeats() {
+    var box = stage.querySelector('[data-bus-seats]');
+    if (!box) return;
+    var m = window.HELL_MEMBERS || {};
+    (m.passengers || []).forEach(function (u) { box.appendChild(makeSeat(u, false)); });
+    if (m.driver) box.appendChild(makeSeat(m.driver, true));
+  }
+  buildSeats();
   var driverLines = (cfg.driverLines && cfg.driverLines.length) ? cfg.driverLines : ['E se reescrevesse em WebAssembly?'];
   var crowdLines = (cfg.crowdLines && cfg.crowdLines.length) ? cfg.crowdLines : ['Boraaa!'];
 
