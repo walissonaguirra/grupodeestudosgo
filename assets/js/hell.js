@@ -11,12 +11,7 @@
 
   var cfg = { driverLines: [], crowdLines: [] };
   try {
-    var raw = document.querySelector('[data-hell-config]');
-    if (raw) {
-      var data = JSON.parse(raw.textContent);
-      if (typeof data === 'string') data = JSON.parse(data);
-      cfg = Object.assign(cfg, data);
-    }
+    if (window.HELL_LINES) cfg = Object.assign(cfg, window.HELL_LINES);
   } catch (e) {}
   var driverLines = (cfg.driverLines && cfg.driverLines.length) ? cfg.driverLines : ['E se reescrevesse em WebAssembly?'];
   var crowdLines = (cfg.crowdLines && cfg.crowdLines.length) ? cfg.crowdLines : ['Boraaa!'];

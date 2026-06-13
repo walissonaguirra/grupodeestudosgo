@@ -1,0 +1,48 @@
+// Falas do easter egg do ônibus. Edite à vontade.
+// driverLines: o Cesar (motorista) sugere baixaria de baixo nível.
+// crowdLines: a galera (passageiros) concordando.
+window.HELL_LINES = {
+  driverLines: [
+    "E se a gente reescrevesse isso em WebAssembly?",
+    "Que tal um alocador custom em C?",
+    "Bota um mmap aí que fica instantâneo.",
+    "Isso é trivial com um ring buffer lock-free.",
+    "Dá pra fazer com goroutine e unsafe.Pointer.",
+    "Bota direto em hardware com FPGA.",
+    "Um pouco de inline assembly não mata ninguém.",
+    "Isso pede um GC próprio, na real.",
+    "Cgo nele e chama a libc direto.",
+    "Vetoriza isso com AVX-512.",
+    "Só trocar pra RISC-V e recompilar.",
+    "Memory-mapped I/O e acabou.",
+    "Escreve o protocolo na unha em cima de UDP.",
+    "Isso roda liso num microcontrolador.",
+    "Bora medir com perf e otimizar no ciclo de clock.",
+    "Joga isso pra GPU com CUDA e relaxa.",
+    "Cache-line alignment resolve teu problema.",
+    "Esquece malloc, usa arena allocator.",
+    "Bota um io_uring aí que voa.",
+    "Isso é só um syscall bem feito.",
+    "Faz o teu próprio scheduler, é simples.",
+    "SIMD nisso e o gargalo some.",
+    "Bare metal sem OS, do jeito certo.",
+    "Roda isso num eBPF dentro do kernel."
+  ],
+  crowdLines: [
+    "Boraaa! 🔥",
+    "Tô dentro 🚌",
+    "O ônibus tá lotando!",
+    "Bora pro low level!",
+    "Esse é o caminho!",
+    "Sobe no ônibus que já vai!",
+    "Já abri a IDE aqui.",
+    "Não entendi nada mas tô dentro!",
+    "Documentação? A gente lê o código fonte.",
+    "Adeus fim de semana 🚌💨",
+    "Já tô lendo a spec do RISC-V.",
+    "Low level é vida!",
+    "Bota mais café que vai virar a noite.",
+    "Segura que o ônibus acelerou!",
+    "Quem precisa de garbage collector?"
+  ]
+};
