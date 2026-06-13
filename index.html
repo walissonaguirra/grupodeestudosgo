@@ -109,39 +109,8 @@
         <span class="bus-sign">L666 · INFERNO</span>
         <span class="bus-window-band"></span>
 
-        <div class="bus-seats">
-          <div class="seat" data-role="crowd">
-            <div class="bubble crowd" data-bubble></div>
-            <a class="win" href="https://github.com/FreyreCorona" target="_blank" rel="noopener" title="@FreyreCorona">
-              <img loading="lazy" src="https://github.com/FreyreCorona.png?size=80" alt="@FreyreCorona">
-            </a>
-          </div>
-          <div class="seat" data-role="crowd">
-            <div class="bubble crowd" data-bubble></div>
-            <a class="win" href="https://github.com/walissonaguirra" target="_blank" rel="noopener" title="@walissonaguirra">
-              <img loading="lazy" src="https://github.com/walissonaguirra.png?size=80" alt="@walissonaguirra">
-            </a>
-          </div>
-          <div class="seat" data-role="crowd">
-            <div class="bubble crowd" data-bubble></div>
-            <a class="win" href="https://github.com/trumae" target="_blank" rel="noopener" title="@trumae">
-              <img loading="lazy" src="https://github.com/trumae.png?size=80" alt="@trumae">
-            </a>
-          </div>
-          <div class="seat" data-role="crowd">
-            <div class="bubble crowd" data-bubble></div>
-            <a class="win" href="https://github.com/hitalos" target="_blank" rel="noopener" title="@hitalos">
-              <img loading="lazy" src="https://github.com/hitalos.png?size=80" alt="@hitalos">
-            </a>
-          </div>
-          <div class="seat seat-driver" data-role="driver">
-            <div class="bubble" data-bubble></div>
-            <a class="win" href="https://github.com/crgimenes" target="_blank" rel="noopener" title="Motorista: @crgimenes">
-              <img loading="lazy" src="https://github.com/crgimenes.png?size=80" alt="@crgimenes (motorista)">
-            </a>
-            <span class="win-tag">@crgimenes</span>
-          </div>
-        </div>
+        <!-- Os assentos sao montados pelo hell.js a partir de assets/data/members.js -->
+        <div class="bus-seats" data-bus-seats></div>
 
         <span class="bus-skirt"></span>
         <span class="headlight"></span>
@@ -168,6 +137,7 @@
     <audio data-hell-audio src="audio/highway.mp3" loop preload="none"></audio>
   </div>
 
+  <script src="assets/data/members.js"></script>
   <script src="assets/data/lines.js"></script>
   <script src="assets/js/countdown.js" defer></script>
   <script src="assets/js/hell.js" defer></script>
